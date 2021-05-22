@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "target":"tool",
+    "public": "dist/toolsalerovianda",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

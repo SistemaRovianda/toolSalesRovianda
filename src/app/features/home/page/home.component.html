@@ -1,0 +1,55 @@
+<div class="{{isDeleting?'overlay':''}}">
+<div>
+<ul>
+    <li><img src="assets/images/grupo-6.png"></li>
+    
+    <li style="float:right"><label (click)="logout()">Cerrar Sesión</label></li>
+</ul>
+</div>
+<div style="text-align: center;">
+    <h1>Ventas totales del día: {{dateStr}}</h1>
+</div>
+<div class="buttons-actions">
+    <button mat-stroked-button color="primary" (click)="confirm()">Guardar</button>
+    <button mat-stroked-button color="warn" (click)="restore()">Revertir</button>
+    <button mat-stroked-button color="primary" (click)="table.search(null)">
+        <mat-icon>autorenew</mat-icon>
+    </button>
+</div>
+<div>
+    <app-table-sales #table></app-table-sales>
+</div>
+<div class="cards">
+    <mat-card class="card-amount">
+    <h1>Acumulado:</h1><br><h1 style="text-align: center;"> $ {{acumulated$ | async}}</h1></mat-card>
+
+    <mat-card class="card-sales" >
+        <h1>Ventas removidas:</h1>
+        <div style="text-align: center;">
+        <mat-icon (click)="showSalesTaked()">format_list_numbered</mat-icon>
+    </div>
+        
+        <h1 style="text-align: center; margin-bottom: 5px;"> {{totalSalesRemoved.length}}</h1>
+        </mat-card>
+
+        <mat-card class="card-sales" (click)="getReport()" *ngIf="hasDeleted">
+        
+            <h1 style="margin-bottom: 1px;">Descargar reporte</h1>
+            
+            <div *ngIf="!isDownloadingReport" style="margin-left: 30%; margin-top: 0%;">
+                <img src="assets/images/download.png" style=" width: 70px; height: 70px; margin-top: 0%;" >
+            </div>
+            <div *ngIf="isDownloadingReport" style="margin-left: 30%; ">
+                <mat-spinner  diameter="70"></mat-spinner>
+            </div>
+        </mat-card>
+</div>
+
+
+
+
+</div>
+<div *ngIf="isDeleting" class="inspector" style="width: 100%; height: 100%; background-color: white; color: black;">
+    
+    <h1>Actualizando folios de ventas, por favor espere...</h1>
+</div>

@@ -1,0 +1,12 @@
+<div class="ticket">
+    <div *ngIf="loading" style="margin-left: 30%">
+        <mat-spinner  diameter="70"></mat-spinner>
+      </div>
+      <div *ngIf="!loading">
+        {{ticket}}
+    </div>
+</div>
+<div>
+    <button mat-raised-button color="primary" (click)="take()">Aceptar</button>
+    <button mat-raised-button color="warn" (click)="cancel()">Cancelar</button>
+</div>

@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "sistema-rovianda"
+  },
+   "targets": {
+    "sistema-rovianda": {
+      "hosting": {
+        "tool": [
+          "tool-rov"
+        ]
+      }
+    }
+  }
+}

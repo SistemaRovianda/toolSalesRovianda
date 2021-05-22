@@ -1,0 +1,58 @@
+<form
+  [formGroup]="form"
+  fxLayout="column"
+  fxLayoutAlign="center stretch"
+  
+  class="mat-body"
+  fxLayoutGap="5px"
+>
+  <mat-form-field fxFlex style="margin-left: 5px;">
+    <mat-icon matPrefix svgIcon="user" aria-hidden="false">|</mat-icon>
+    <mat-label style="margin-left: 5px;" class="input ">Usuario</mat-label>
+    <input
+      style="margin-left: 5px;"
+      name="email"
+      formControlName="email"
+      matInput
+      type="text"
+    />
+    <mat-error>
+      <span *ngIf="form.hasError('required', 'email')">
+        Este campo es requerido.
+      </span>
+      <span *ngIf="form.hasError('email', 'email')">
+        Este no es un correo electrónico válido.
+      </span>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field fxFlex>
+    <mat-icon
+      class="clickable"
+      matPrefix
+      svgIcon="padlock"
+      aria-hidden="false"
+      (click)="togglePassword()"
+    >
+      <!-- <mat-icon>
+        {{ passwordVisibilityIcon }}
+      </mat-icon> -->
+    </mat-icon>
+    <mat-label style="margin-left: 5px;">Contraseña</mat-label>
+    <input
+      style="margin-left: 5px;"
+      name="password"
+      [type]="shouldHidePassword ? 'password' : 'text'"
+      formControlName="password"
+      matInput
+    />
+    <mat-error>
+      Este campo es requerido.
+    </mat-error>
+  </mat-form-field>
+  <!-- <div fxLayoutAlign="end center" fxLayoutGap="15px">
+    <a class="link text-muted" routerLink="/">
+      Recuperar contraseña
+    </a>
+  </div> -->
+  <button hidden="hidden" type="submit" #submitButton></button>
+</form>

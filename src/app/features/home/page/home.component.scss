@@ -1,0 +1,67 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    height: 150px;
+    li{
+        display: inline;
+        float: left;
+        height: 150px;
+        label{
+            display: block;
+            margin-right: 50px;
+            background-color: white;
+            text-decoration: none;
+            margin-top:75px;
+        }
+        img{
+            height: 150px;
+        }   
+    }
+    width: 100%;
+}
+
+.card-amount,.card-sales{
+    width: max-content;
+    height: 100px;
+    float: left;
+    margin-left: 50px;
+}
+
+.deleted{
+    background-color: black;
+    color: white;
+}
+.cards{
+    margin-top: 30px;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.buttons-actions{
+    float: right;
+    margin-right: 200px;
+    button{
+        margin-right: 20px;
+    }
+}
+
+.overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+}
+.inspector{
+    width: 100%;
+    margin-top: 40%;
+    height: 100%;
+    text-align: center;
+    z-index: 3;
+}

@@ -1,0 +1,70 @@
+<div  class="login__background " >
+  <div fxFlex="60" fxLayoutAlign="center center" fxLayout="column">
+    <div fxFlex="80" fxLayoutAlign="center center">
+      <div fxFlex="500px" fxLayoutGap="15px">
+        <div fxLayoutAlign="start center">
+          <img src="assets/images/grupo-6.svg" alt="logo" />
+        </div>
+
+        <h1 class="title text-white">Bienvenido</h1>
+        <p class="mat-body text-white">
+          Tool De Sistema Rovianda (Super Usuario)
+        </p>
+
+        <div class="figure" fxLayoutAlign="start end">
+          <div fxLayoutAlign="center center">
+            <div>
+              <img src="assets/images/Sustracción 6.svg" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div fxFlex class="figure" fxLayoutAlign="start end">
+      <div class="cuarto-circulo" fxLayoutAlign="start end">
+        <div class="cuarto-circulo-container"></div>
+      </div>
+    </div>
+  </div>
+  <div fxFlex="40" fxLayoutAlign="center center">
+    <mat-card fxLayout="column" fxFlex="75" style="padding: 0;">
+      <div fxLayoutAlign="end center">
+        <h1 class="mat-h1 text-primary" fxFlex style="padding: 0 20px;">
+          Login
+        </h1>
+        <div>
+          <img
+            src="assets/images/Intersección 1.svg"
+            alt=""
+            class="icon-aside icon-one"
+            height="100px"
+          />
+        </div>
+      </div>
+
+      <div
+        fxLayout="column"
+        fxLayoutGap="15px"
+        style="padding:40px 20px 40px 20px;"
+      >
+        <login-form #form (onSubmit)="login($event)"></login-form>
+        <div class="error" *ngIf="userNotValid">
+          <mat-error>
+            Usuario o contraseña incorrectos.
+          </mat-error>
+        </div>
+        <div class="text-white">
+          
+          <button  *ngIf="!loading" mat-raised-button color="primary" (click)="form.onSubmit()" >
+            
+            <label>Iniciar sesión</label>
+          </button>
+          <div *ngIf="loading">
+            <mat-spinner  diameter="30"></mat-spinner>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

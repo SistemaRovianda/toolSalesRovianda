@@ -1,0 +1,60 @@
+<div *ngIf="loading" style="margin-left: 50%">
+    <mat-spinner  diameter="100"></mat-spinner>
+  </div>
+  <form class="form" [formGroup]="form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Folio</mat-label>
+      <input matInput placeholder="0000000001"  formControlName="folio">
+    </mat-form-field>
+    
+    <button mat-raised-button (click)="searchByFolio()"> Buscar Folio</button>
+  </form>
+<table *ngIf="!loading" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  
+    <ng-container matColumnDef="No.">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element;let index=index"> {{index+1}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="Folio">
+        <th mat-header-cell *matHeaderCellDef> Folio </th>
+        <td mat-cell *matCellDef="let element"> {{element.folio}} </td>
+      </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="Vendedor">
+      <th mat-header-cell *matHeaderCellDef> Vendedor </th>
+      <td mat-cell *matCellDef="let element"> {{element.seller.name}} </td>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="Fecha">
+      <th mat-header-cell *matHeaderCellDef> Fecha </th>
+      <td mat-cell *matCellDef="let element"> {{pipeDate(element.date)}} </td>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="Monto">
+      <th mat-header-cell *matHeaderCellDef> Monto </th>
+      <td mat-cell *matCellDef="let element"> $ {{pipeNumber(element.amount)}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Remover">
+        <th mat-header-cell *matHeaderCellDef> Remover </th>
+        <td mat-cell *matCellDef="let element"> 
+        <button mat-raised-button color="warn" (click)="remove(element.saleId)">Remover</button>    
+        </td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+  </table>
+  <mat-paginator *ngIf="!loading" 
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    [pageIndex]="pageIndex"
+    [length]="count"
+    (page)="search($event)">
+</mat-paginator>  
+  
