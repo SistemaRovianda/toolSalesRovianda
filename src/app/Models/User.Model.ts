@@ -6,3 +6,14 @@ export interface User{
     email?: string;
     rol?: string;
 }
+
+export interface Seller{
+    id:string;
+    saeKey:number,
+    name: string;
+    email: string,
+    job:string,
+    warehouseKeySae:string,
+    status: string,
+    cve: string
+}

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
@@ -9,6 +9,7 @@ import { AppState } from 'src/app/Models/App.State';
 import { Sale } from 'src/app/Models/Sale.Model';
 import { addRemoveSale, getAllSalesForSuperAdmin, popRemoveSale } from 'src/app/providers/store/sales.actions';
 import { getAllSalesSelector, getLoaginStatusSelector, getTotalCountSelector, getTotalSalesRemoveSelector } from 'src/app/providers/store/sales.selectors';
+import { ModalCancelReactivateComponent } from '../modal-cancel-reactivate/modal-cancel-reactivate.component';
 import { ModalShowSaleComponent } from '../modal-show-sale/modal-show-sale.component';
 
 @Component({
@@ -70,6 +71,10 @@ export class TableSalesComponent implements OnInit,OnDestroy {
   }
 private subscription:Subscription;
   dateStr:string="";
+  @Input("_dateStr") set _dateStr(dateStr:string){
+    console.log("Asignando");
+    this.dateStr=dateStr;
+  }
   ngOnInit(): void {
     this.subscription = new Subscription();
     let date=new Date();
@@ -135,6 +140,45 @@ private subscription:Subscription;
       }
     })
     //this.store.dispatch(addRemoveSale({id}));
+  }
+
+  cancel(saleId:number){
+    let sale=this.sales.filter(x=>x.saleId==saleId)[0];
+    const dialogRef = this.dialog.open(ModalCancelReactivateComponent,{
+      data:{
+        typeOp:"Cancelar",
+        folio: sale.folio,
+        amount: sale.amount,
+        saleId: sale.saleId
+      },
+      width: "300px",
+      height: "150px"
+    });
+    dialogRef.afterClosed().subscribe((result)=>{
+      console.log(result);
+      if(result!=undefined && result==true){
+        this.searchByFolio();
+      }
+    })
+  }
+  reactive(saleId:number){
+    let sale=this.sales.filter(x=>x.saleId==saleId)[0];
+    const dialogRef = this.dialog.open(ModalCancelReactivateComponent,{
+      data:{
+        typeOp:"Reactivar",
+        folio: sale.folio,
+        amount: sale.amount,
+        saleId: sale.saleId
+      },
+      width: "300px",
+      height: "150px"
+    });
+    dialogRef.afterClosed().subscribe((result)=>{
+      if(result!=undefined && result==true){
+        this.searchByFolio();
+      }
+      
+    })
   }
 
   pipeNumber(x:number){

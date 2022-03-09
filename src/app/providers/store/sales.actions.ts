@@ -12,6 +12,7 @@ export const addRemoveSale = createAction("[SUPERADMIN] remove sale",props<{id:n
 export const popRemoveSale = createAction("[SUPERADMIN] pop remove sale",props<{id:number}>());
 
 export const getTicketOfSale = createAction("[SUPERADMIN] getting ticket",props<{saleId:number}>());
+export const getDevolutionTicketOfSale = createAction("[SUPERADMIN] getting devolution ticket",props<{saleId:number}>());
 export const setTicketOfSale = createAction("[SUPERADMIN] setting ticket",props<{ticket:string}>());
 
 export const deleteSalesSuperAdmin = createAction("[SUPERADMIN] deleting sales",props<{salesIds:Array<number>,date:string}>());

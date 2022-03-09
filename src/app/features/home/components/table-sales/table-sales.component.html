@@ -40,9 +40,13 @@
     </ng-container>
 
     <ng-container matColumnDef="Remover">
-        <th mat-header-cell *matHeaderCellDef> Remover </th>
+        <th mat-header-cell *matHeaderCellDef> Remover/Cancelar</th>
         <td mat-cell *matCellDef="let element"> 
-        <button mat-raised-button color="warn" (click)="remove(element.saleId)">Remover</button>    
+        <button mat-raised-button  [disabled]='element.statusStr=="CANCELED"' color="warn" (click)="remove(element.saleId)">Remover</button>    
+        <button mat-raised-button *ngIf='element.statusStr=="ACTIVE"' color="default" (click)="cancel(element.saleId)" >Cancelar</button>    
+        <button mat-raised-button *ngIf='element.statusStr=="CANCELED"' color="default" (click)="reactive(element.saleId)">Reactivar</button>    
+        <label *ngIf='element.statusStr=="CANCELED"' style="margin-left: 10px;">Nota cancelada</label>
+       
         </td>
       </ng-container>
 

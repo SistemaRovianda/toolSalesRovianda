@@ -65,3 +65,10 @@ ul {
     text-align: center;
     z-index: 3;
 }
+
+.invisible{
+    width: 0px;
+    height: 0px;
+    border-style: none;
+    box-shadow: none;
+}

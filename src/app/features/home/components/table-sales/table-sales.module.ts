@@ -13,12 +13,14 @@ import { ModalListSalesTakedComponent } from '../modal-list-sales-taked/modal-li
 import { ModalListSalesTakedModule } from '../modal-list-sales-taked/modal-list-sales-taked.module';
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalCancelReactivateModule } from '../modal-cancel-reactivate/modal-cancel-reactivate.module';
 @NgModule({
   declarations: [TableSalesComponent],
   imports: [
     CommonModule,RouterModule,MatTableModule,MatButtonModule,MatPaginatorModule,MatProgressSpinnerModule,MatDialogModule,ModalShowSaleModule,
     MatInputModule,MatButtonModule,ReactiveFormsModule,
-  FormsModule
+  FormsModule,
+  ModalCancelReactivateModule
   ],
   exports:[TableSalesComponent],
   entryComponents:[ModalShowSaleComponent]

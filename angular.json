@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "toolsalerovianda"
+  "defaultProject": "toolsalerovianda",
+  "cli": {
+    "analytics": false
+  }
 }

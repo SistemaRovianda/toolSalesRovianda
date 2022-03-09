@@ -7,7 +7,11 @@
 </ul>
 </div>
 <div style="text-align: center;">
-    <h1>Ventas totales del día: {{dateStr}}</h1>
+    <h1>Ventas totales del día: {{dateStr}} <mat-icon (click)="picker.open()">edit</mat-icon></h1>
+    <form [formGroup]="form">
+        <input matInput [matDatepicker]="picker" class="invisible" formControlName="date">
+        <mat-datepicker #picker></mat-datepicker>  
+    </form>
 </div>
 <div class="buttons-actions">
     <button mat-stroked-button color="primary" (click)="confirm()">Guardar</button>
@@ -15,9 +19,12 @@
     <button mat-stroked-button color="primary" (click)="table.search(null)">
         <mat-icon>autorenew</mat-icon>
     </button>
+    <button mat-stroked-button color="primary" (click)="reports()">
+        <mat-icon>summarize</mat-icon>
+    </button>
 </div>
 <div>
-    <app-table-sales #table></app-table-sales>
+    <app-table-sales [_dateStr]="dateStr" #table></app-table-sales>
 </div>
 <div class="cards">
     <mat-card class="card-amount">

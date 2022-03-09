@@ -1,5 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -12,6 +13,7 @@ import {  deleteSalesSuperAdmin, popRemoveSale } from 'src/app/providers/store/s
 import { getDeletingStatus, getTotalAcumulatedSelector, getTotalSalesRemoveSelector } from 'src/app/providers/store/sales.selectors';
 import { ModalConfirmRemoveComponent } from '../components/modal-confirm-remove/modal-confirm-remove.component';
 import { ModalListSalesTakedComponent } from '../components/modal-list-sales-taked/modal-list-sales-taked.component';
+import { ModalReportsComponent } from '../components/modal-reports/modal-reports.component';
 
 @Component({
   selector: 'app-home',
@@ -31,9 +33,20 @@ export class HomeComponent implements OnInit {
   isDeleting:boolean=false;
   hasDeleted:boolean=false;
   isDownloadingReport:boolean=false;
+  form:FormGroup;
+
+  get date(){
+    return this.form.get("date");
+  }
   ngOnInit(): void {
+    this.form= new FormGroup({
+      date: new FormControl(null)
+    });
+    this.date.valueChanges.subscribe((dateSelected)=>{
+      console.log("DateSelected: ",dateSelected);
+      this.dateStr =this.parseDate(new Date(dateSelected));
+    });
     let date=new Date();
-    let year = date.getFullYear();
     date.setHours(date.getHours()-18);
 
     let dayCount = this.zellerGregorian(date);
@@ -41,10 +54,8 @@ export class HomeComponent implements OnInit {
     if(dayCount==1){
       date.setHours(date.getHours()-24);
     }
-
-    let month=((date.getMonth()+1)<10)?'0'+(date.getMonth()+1):date.getMonth()+1;
-    let day=(date.getDate()<10)?'0'+date.getDate():date.getDate();
-    this.dateStr=year+'-'+month+'-'+day;
+    this.dateStr=this.parseDate(date);
+    
     this.subscription.add(this.store.select(getTotalSalesRemoveSelector).subscribe((salesIds)=>{
       console.log(salesIds.map(x=>x.saleId));
       this.totalSalesRemoved=salesIds;
@@ -61,6 +72,11 @@ export class HomeComponent implements OnInit {
     }));
   }
 
+  parseDate(date:Date){
+    let month=((date.getMonth()+1)<10)?'0'+(date.getMonth()+1):date.getMonth()+1;
+    let day=(date.getDate()<10)?'0'+date.getDate():date.getDate();
+    return date.getFullYear()+'-'+month+'-'+day;
+  }
   
 
   restore(){
@@ -143,5 +159,9 @@ export class HomeComponent implements OnInit {
     h = (q + Math.floor(((13 * (m + 1)) / 5)) + Y + Math.floor((Y / 4)) - Math.floor((Y / 100)) + Math.floor((Y / 400))) % 7;
 
     return h;
+}
+
+reports(){
+  this.dialog.open(ModalReportsComponent);
 }
 }

@@ -1,0 +1,54 @@
+<div class="container">
+    <label class="title">Generación de reportes</label>
+    <mat-form-field appearance="fill">
+        <mat-label>Tipo de reporte</mat-label>
+        <mat-select [formControl]="types">
+          <mat-option value="ALL" >Todas las ventas</mat-option>
+          <mat-option value="CANCELED">Solo canceladas</mat-option>
+          <mat-option value="OMITED">Omisiones</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Vendedor</mat-label>
+        <mat-select [formControl]="seller">
+          <mat-option [value]="seller.id" *ngFor="let seller of sellers">{{seller.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="dates-reports-container">
+        <form [formGroup]="form">
+            <div class="date-input-container-start">
+                <div>Desde: </div>
+                <div><mat-icon (click)="picker.open()">today</mat-icon></div>
+                <div>{{fromStr}}</div>
+                <form [formGroup]="form">
+                    <input matInput [matDatepicker]="picker" class="invisible" formControlName="from">
+                    <mat-datepicker #picker></mat-datepicker>  
+                </form>
+            </div>
+            <div class="date-input-container-end">
+                <div>Hasta: </div>
+                <div><mat-icon (click)="picker2.open()">event</mat-icon></div>
+                <div>{{toStr}}</div>
+                
+                    <input matInput [matDatepicker]="picker2" class="invisible" formControlName="to">
+                    <mat-datepicker #picker2 ></mat-datepicker>  
+                
+            </div>
+            
+        </form>
+        
+      </div>
+      <div class="button-download-reports">
+        <div class="button-download-reports-pdf" (click)="downloadPdf()">
+            <mat-icon class="icon" >picture_as_pdf</mat-icon>
+            <label style="color: black;">PDF</label>
+        </div>
+        <div class="button-download-reports-excel" (click)="downloadExcel()">
+            <img src="assets/icons/file-excel-solid.svg" class="icon-excel" >
+            <label style="color: black;">EXCEL</label>
+        </div>
+    </div>
+    <div *ngIf="isLoading">
+        <mat-spinner></mat-spinner>
+      </div>
+</div>

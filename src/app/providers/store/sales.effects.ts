@@ -34,6 +34,20 @@ export class SaleEffects{
             })
         ))
     ))
+    
+    getDevolutionTicket$ = createEffect(()=>this.actions.pipe(
+        ofType(saleActions.getDevolutionTicketOfSale),
+        exhaustMap((action)=>this.roviandaApi.getDevolutionTicket(action.saleId).pipe(
+            switchMap((response)=>{
+                //console.log("TICKET",response);
+                return [saleActions.setTicketOfSale({ticket:response as string})]
+            }),
+            catchError((err)=>{
+                //console.log("ERROR",err);
+                return [saleActions.setTicketOfSale({ticket:""})]
+            })
+        ))
+    ))
 
     deleteSales$ = createEffect(()=>this.actions.pipe(
         ofType(saleActions.deleteSalesSuperAdmin),

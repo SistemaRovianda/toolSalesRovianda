@@ -1,0 +1,39 @@
+.dates-reports-container{
+    display: block;
+}
+.date-input-container-start{
+    float: left;
+    text-align: center;
+}
+.date-input-container-end{
+    float: right;
+    text-align: center;
+}
+.title{
+    text-align: center;
+}
+.container{
+    display: grid;
+}
+.invisible{
+    width: 0px;
+    height: 0px;
+    border-style: none;
+    box-shadow: none;
+}
+.icon-excel{
+    width: 20px;
+    height: 20px;
+}
+
+.button-download-reports{
+    display: block;
+}
+.button-download-reports-pdf{
+background-color: #4bbae3;
+float: left;
+}
+.button-download-reports-excel{
+background-color: #34e07e;
+float: right;
+}
