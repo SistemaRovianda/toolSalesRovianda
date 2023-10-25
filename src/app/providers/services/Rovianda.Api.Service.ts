@@ -13,6 +13,17 @@ export class RoviandaApiService{
     constructor(private http:HttpClient){
     }
 
+    getListOfClient(page:number,perPage:number,hint:string,type:string,sellerId:string){
+        let httpParams:HttpParams= new HttpParams().append("page",page.toString()).append("perPage",perPage.toString()).append("type",type);
+        if(hint!=null && hint!=""){
+          httpParams=httpParams.append("hint",hint);
+        }
+        if(sellerId!="0" && sellerId!=null){
+          httpParams=httpParams.append("sellerId",sellerId);
+        }
+        return this.http.get(`${this.path}/sae/list-clients`,{params:httpParams,observe:"response"});
+      }
+
     getAllSales(page:number,peerPage:number,saleIds:Array<number>,date:string,folio:string){
         let parameters:HttpParams= new HttpParams();
         parameters= parameters.set("page",page.toString());
@@ -57,6 +68,11 @@ export class RoviandaApiService{
 
     cancelActivateSale(saleId:number){
         return this.http.put(`${this.path}/cancel-reactivate/${saleId}`,{});
+    }
+
+    paySale(saleId:number){
+        let params:HttpParams = new HttpParams().set("saleId",saleId.toString());
+        return this.http.patch(`${this.path}/salepayment`,null,{params});
     }
 
     getAllSellers(){

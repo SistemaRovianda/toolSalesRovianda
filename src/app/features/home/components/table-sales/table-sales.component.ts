@@ -10,6 +10,7 @@ import { Sale } from 'src/app/Models/Sale.Model';
 import { addRemoveSale, getAllSalesForSuperAdmin, popRemoveSale } from 'src/app/providers/store/sales.actions';
 import { getAllSalesSelector, getLoaginStatusSelector, getTotalCountSelector, getTotalSalesRemoveSelector } from 'src/app/providers/store/sales.selectors';
 import { ModalCancelReactivateComponent } from '../modal-cancel-reactivate/modal-cancel-reactivate.component';
+import { ModalChangeClientComponent } from '../modal-change-client/modal-change-client.component';
 import { ModalShowSaleComponent } from '../modal-show-sale/modal-show-sale.component';
 
 @Component({
@@ -20,7 +21,7 @@ import { ModalShowSaleComponent } from '../modal-show-sale/modal-show-sale.compo
 export class TableSalesComponent implements OnInit,OnDestroy {
 
   dataSource:MatTableDataSource<Sale>;
-  displayedColumns: string[] = ['No.', 'Folio','Vendedor', 'Fecha', 'Monto','Remover'];
+  displayedColumns: string[] = ['No.', 'Folio','Type','Vendedor', 'Fecha', 'Monto','Remover'];
   count:number=0;
   pageSize:number=10;
   pageIndex:number=0;
@@ -125,12 +126,29 @@ private subscription:Subscription;
     this.store.dispatch(getAllSalesForSuperAdmin({page:this.pageIndex,peerPage:this.pageSize,saleIds:this.salesIds.map((x)=>x.saleId),date:this.dateStr,folio:this.folio.value?(this.folio.value).toString():null}));
   }
 
+  changeClient(saleId:number,sellerId:string){
+    const dialogRef = this.dialog.open(ModalChangeClientComponent,{
+      data:{
+        saleId,
+        sellerId
+      },
+      width: "300px",
+      height: "300px"
+    });
+    dialogRef.afterClosed().subscribe((result)=>{
+      console.log(result);
+    })
+  }
+  changePaymentMethod(saleId:number){
+
+  }
   remove(id:number){
     //console.log("removiendo: "+id);
     let sale=this.sales.filter(x=>x.saleId==id)[0];
     const dialogRef = this.dialog.open(ModalShowSaleComponent,{
       data:{
-        sale
+        sale,
+        type:"delete"
       }
     });
     dialogRef.afterClosed().subscribe((result)=>{
@@ -140,6 +158,19 @@ private subscription:Subscription;
       }
     })
     //this.store.dispatch(addRemoveSale({id}));
+  }
+
+  see(id:number){
+    //console.log("removiendo: "+id);
+    let sale=this.sales.filter(x=>x.saleId==id)[0];
+    this.dialog.open(ModalShowSaleComponent,{
+      data:{
+        sale,
+        type: "see"
+      }
+    });
+    
+    
   }
 
   cancel(saleId:number){
@@ -166,6 +197,25 @@ private subscription:Subscription;
     const dialogRef = this.dialog.open(ModalCancelReactivateComponent,{
       data:{
         typeOp:"Reactivar",
+        folio: sale.folio,
+        amount: sale.amount,
+        saleId: sale.saleId
+      },
+      width: "300px",
+      height: "150px"
+    });
+    dialogRef.afterClosed().subscribe((result)=>{
+      if(result!=undefined && result==true){
+        this.searchByFolio();
+      }
+      
+    })
+  }
+  payment(saleId:number){
+    let sale=this.sales.filter(x=>x.saleId==saleId)[0];
+    const dialogRef = this.dialog.open(ModalCancelReactivateComponent,{
+      data:{
+        typeOp:"saldar",
         folio: sale.folio,
         amount: sale.amount,
         saleId: sale.saleId

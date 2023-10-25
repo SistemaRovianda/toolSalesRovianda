@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalCancelReactivateComponent } from './modal-cancel-reactivate.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -9,7 +10,8 @@ import { MatButtonModule } from '@angular/material/button';
   declarations: [ModalCancelReactivateComponent],
   imports: [
     CommonModule,
-    MatButtonModule
+    MatButtonModule,
+    MatProgressSpinnerModule
   ],
   exports: [ModalCancelReactivateComponent]
 })

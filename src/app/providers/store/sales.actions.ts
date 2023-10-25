@@ -1,6 +1,5 @@
 import { createAction, props } from "@ngrx/store";
 import { Sale } from 'src/app/Models/Sale.Model';
-import { StringDecoder } from "string_decoder";
 
 export const getAllSalesForSuperAdmin=createAction("[SUPERADMIN] getting all sales",props<{page:number,peerPage:number,saleIds:Array<number>,date:string,folio:string}>());
 export const setAllSalesForSuperAdmin=createAction("[SUPERADMIN] setting all sales",props<{sales:Sale[],count:number}>());
@@ -18,3 +17,7 @@ export const setTicketOfSale = createAction("[SUPERADMIN] setting ticket",props<
 export const deleteSalesSuperAdmin = createAction("[SUPERADMIN] deleting sales",props<{salesIds:Array<number>,date:string}>());
 export const deleteSalesSuperAdminSuccess = createAction("[SUPERADMIN] deleting sales success");
 export const deleteSalesSuperAdminFail = createAction("[SUPERADMIN] deleting sales fail",props<{error:string}>());
+
+export const getClientsOfSeller = createAction("[SUPERADMIN] getting clients of seller",props<{page:number,perPage:number,sellerId:string,filter:string,hint:string}>());
+export const getClientsOfSellerSuccess = createAction("[SUPERADMIN] getting clients of seller success",props<{clientList:Array<any>,totalCount:number}>());
+export const getClientsOfSellerError = createAction("[SUPERADMIN] getting clients of seller error");

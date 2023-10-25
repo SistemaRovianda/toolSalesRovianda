@@ -1,6 +1,8 @@
 <label>Desea {{data.typeOp}} la nota: {{data.folio}}</label>
 <label>Monto: $ {{data.amount}}</label>
 <div class="buttons-container">
-<button mat-raised-button color="primary" (click)="cancel()">Cancelar</button>
-<button mat-raised-button color="default" (click)="confirm()">Confirmar</button>
+<button mat-raised-button color="primary" (click)="cancel()" [disabled]="isLoading">Cancelar</button>
+<button mat-raised-button color="default" (click)="confirm()" [disabled]="isLoading">Confirmar</button>
+<mat-spinner  diameter="20" *ngIf="isLoading"></mat-spinner>
 </div>
+

@@ -43,3 +43,14 @@ export const getDeletingStatus = createSelector(
     SALES,
     (state)=>state.isDeletingSales
     );
+
+
+export const getTotalCountClients = createSelector(
+    SALES,
+    (state)=>state.totalCountClients
+);
+
+export const getClientsList = createSelector(
+    SALES,
+    (state)=>state.clients
+)

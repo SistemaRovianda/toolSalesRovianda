@@ -8,5 +8,5 @@
 </div>
 <div>
     <button mat-raised-button color="primary" (click)="take()">Aceptar</button>
-    <button mat-raised-button color="warn" (click)="cancel()">Cancelar</button>
+    <button mat-raised-button color="warn" (click)="cancel()"*ngIf="data.type!='see'">Cancelar</button>
 </div>

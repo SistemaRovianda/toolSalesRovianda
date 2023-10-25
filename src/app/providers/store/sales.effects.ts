@@ -1,7 +1,7 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, switchMap } from 'rxjs/operators';
+import { catchError, exhaustMap, switchMap,mergeMap } from 'rxjs/operators';
 import { Sale } from 'src/app/Models/Sale.Model';
 import { RoviandaApiService } from '../services/Rovianda.Api.Service';
 import * as saleActions from "./sales.actions";
@@ -12,6 +12,17 @@ export class SaleEffects{
 
     constructor(private roviandaApi:RoviandaApiService,private actions:Actions){
     }
+
+    getClientsOfSeller$ = createEffect(()=>this.actions.pipe(
+        ofType(saleActions.getClientsOfSeller),
+        mergeMap((action)=>this.roviandaApi.getListOfClient(action.page,action.perPage,action.hint,action.filter,action.sellerId).pipe(
+            switchMap((response)=>{
+                let totalCount:number=+response.headers.get("x-total-count");
+                let clientList:any=response.body;
+                return [saleActions.getClientsOfSellerSuccess({totalCount,clientList})]}),
+            catchError(()=>[saleActions.getClientsOfSellerError()])
+        ))
+    ));
 
     getAllSales$ = createEffect(()=>this.actions.pipe(
         ofType(saleActions.getAllSalesForSuperAdmin),

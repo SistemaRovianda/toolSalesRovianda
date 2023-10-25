@@ -14,7 +14,7 @@ import { getCurrentTicketSelected, getLoadingTicketSelected, getLoaginStatusSele
 })
 export class ModalShowSaleComponent implements OnInit,OnDestroy {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data:{sale:Sale},private store:Store<AppState>,public dialogRef:MatDialogRef<ModalShowSaleComponent>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data:{sale:Sale,type:string},private store:Store<AppState>,public dialogRef:MatDialogRef<ModalShowSaleComponent>) { }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
@@ -45,7 +45,11 @@ export class ModalShowSaleComponent implements OnInit,OnDestroy {
     this.dialogRef.close(null);
   }
   take(){
-    this.dialogRef.close(this.data.sale.saleId);
+    if(this.data.type!='see'){
+      this.dialogRef.close(this.data.sale.saleId);
+    }else{
+      this.dialogRef.close(null);
+    }
   }
 
 }

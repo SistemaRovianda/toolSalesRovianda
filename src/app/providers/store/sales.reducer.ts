@@ -6,6 +6,8 @@ import { Sale } from 'src/app/Models/Sale.Model';
 import * as saleActions from "./sales.actions";
 export interface salesState{
     sales:Sale[],
+    clients:any[],
+    totalCountClients:number,
     count:number,
     loading:boolean,
     salesIds:Array<Sale>,
@@ -18,6 +20,8 @@ export interface salesState{
 
 const initValue:salesState ={
     sales:[],
+    clients:[],
+    totalCountClients:0,
     loading:false,
     count:0,
     salesIds:[],
@@ -66,5 +70,8 @@ export const saleReducer = createReducer<salesState>(
     on(saleActions.deleteSalesSuperAdmin,(state,{salesIds})=>({...state,isDeletingSales:true})),
     on(saleActions.deleteSalesSuperAdminSuccess,(state)=>({...state,isDeletingSales:false,salesIds:[],totalAcumulated:0})),
     on(saleActions.deleteSalesSuperAdminFail,(state,{error})=>({...state,isDeletingSales:false,errorDeleting:error})),
+    on(saleActions.getClientsOfSeller,(state)=>({...state,loading:true})),
+    on(saleActions.getClientsOfSellerSuccess,(state,{totalCount,clientList})=>({...state,loading:false,totalCountClients:totalCount,clients:clientList})),
+    on(saleActions.getClientsOfSellerError,(state)=>({...state,loading:false,totalCountClients:0,clients:[]}))
 );
 
